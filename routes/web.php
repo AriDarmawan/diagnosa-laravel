@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/test', 'VerdictController@getVerdict')->name('test');
+
+Route::get('/testV', function () {
+    return view('test');
+});
+

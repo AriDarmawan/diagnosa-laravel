@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Encore\Admin\Auth\Database\AdminTablesSeeder;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,5 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call(AdminTablesSeeder::class);
+        $this->call(DiagnosisTableSeeder::class);
+        $this->call(DiseaseTableSeeder::class);
+        $this->call(SymptomsTableSeeder::class);
     }
 }
