@@ -18,7 +18,8 @@
 <body>
     <form method="post" action="{{ route('test') }}">
         {{csrf_field()}}
-        <input type="text" name="symptoms">
+        {{-- coba: saya merasa pusing disertai kelelahan juga demam terkadang mimisan kalo malam lemas di siang hari ngantuk--}}
+        <textarea name="symptoms"></textarea>
         <input type="submit" value="send">
     </form>
 </body>

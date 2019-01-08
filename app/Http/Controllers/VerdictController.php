@@ -8,7 +8,8 @@ class VerdictController extends Controller
 {
     //
     public function getVerdict(Request $request){
-        $symptoms = explode(',',$request->post('symptoms'));
+//        $symptoms = explode(',',$request->post('symptoms'));
+        $symptoms = $request->post('symptoms');
         $verdict = new Verdict();
         return $verdict->getVerdict($symptoms);
     }
