@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use App\Verdict;
 class VerdictController extends Controller
 {
+
+    private $verdict;
+
+    public function __construct()
+    {
+        $this->verdict = new Verdict();
+    }
+
     //
     public function getVerdict(Request $request)
     {
@@ -27,8 +35,7 @@ class VerdictController extends Controller
             }
         }
 
-        $verdict = new Verdict();
-        return $verdict->getVerdict($symptoms);
+        return $this->verdict->getVerdict($symptoms);
     }
 
     public function store( Request $request)
