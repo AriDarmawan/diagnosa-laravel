@@ -12,4 +12,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
 
+    $router->resource('/diagnosa', 'DiagnosaController')->except('detail', 'edit');
+
 });

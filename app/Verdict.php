@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+
 class Verdict extends Model
 {
     //todo : ALTER TABLE symptoms ADD FULLTEXT (symptom_name);
-    public function getVerdict ($symptoms){
+    public function getVerdict($symptoms)
+    {
 //        $ids = join("','",$symptoms);
 //        $verdict = DB::select("select
 //                              penyakit.disease_name,

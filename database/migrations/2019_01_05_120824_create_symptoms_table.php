@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateSymptomsTable extends Migration
 {
@@ -18,6 +19,8 @@ class CreateSymptomsTable extends Migration
             $table->string('symptom_name');
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE symptoms ADD FULLTEXT (symptom_name)');
     }
 
     /**

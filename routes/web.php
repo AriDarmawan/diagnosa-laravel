@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::post('/test', 'VerdictController@getVerdict')->name('test');
 
+Route::post('/diagnosa', 'VerdictController@diagnosa')->name('diagnosa');
+
 Route::get('/testV', function () {
     return view('test');
 });
