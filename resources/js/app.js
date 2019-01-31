@@ -9,8 +9,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import Vue from 'vue'
-import VueChatScroll from 'vue-chat-scroll'
-Vue.use(VueChatScroll);
+// import VueChatScroll from 'vue-chat-scroll'
+// Vue.use(VueChatScroll);
 
 /**
  * The following block of code may be used to automatically register your
@@ -40,6 +40,10 @@ const app = new Vue({
             message: [],
             user:[],
             color:[]
+        },
+        doctor:{
+            symptoms : [],
+            diagnosis : [],
         }
     },
 
@@ -47,18 +51,19 @@ const app = new Vue({
       send(){
           if (this.message.length != 0)
           {
-              this.chat.message.push(this.message);
-              this.chat.user.push('you');
-              this.chat.color.push('warning');
-              axios.post('/diagnosis', {
+              console.log(this.message);
+              // this.doctor.symptoms.push(this.message);
+              // this.chat.user.push('you');
+              // this.chat.color.push('warning');
+              axios.post('diagnosis', {
                   message : this.message
               })
                   .then(response => {
-                      console.log(response);
+                      // console.log(response);
                       this.message = ''
                   })
                   .catch(error => {
-                      console.log(error);
+                      // console.log(error);
                       this.message = ''
                   });
           }
@@ -68,10 +73,7 @@ const app = new Vue({
     mounted(){
         Echo.private('chat')
             .listen('ChatEvent', (e) => {
-                this.chat.message.push(e.message);
-                this.chat.user.push(e.user);
-                this.chat.color.push('success');
-                console.log(this.chat);
+                this.doctor.diagnosis.push(e.diagnosis);
             });
     }
 });

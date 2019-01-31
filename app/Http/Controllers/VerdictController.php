@@ -39,7 +39,6 @@ class VerdictController extends Controller
 
         $message =$this->verdict->getVerdict($tmpSymptom1);
 
-
         event(new ChatEvent($message, $tmpSymptom1));
     }
 
