@@ -31,6 +31,52 @@ Vue.component('message', require('./components/message.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+/*const app = new Vue({
+    el: '#app',
+    data:{
+       /!* message:'',
+        symptom:'',
+        chat:{
+            message: [],
+            user:[],
+            color:[]
+        },
+        doctor:{
+            symptoms : [],
+            diagnosis : [],
+        }*!/
+
+       symptoms:{}
+    },
+
+    methods:{
+      send(){
+
+
+
+      }
+    },
+
+    mounted(){
+        // axios.get('http://localhost:8000/symptom').then(response =>{this.symptoms = response});
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/symptom',
+        }).then(response => (this.symptoms= response.data));
+
+        console.log('adsasdad');
+        console.log(this.symptoms);
+
+        Echo.private('chat')
+            .listen('ChatEvent', (e) => {
+                this.doctor.diagnosis.push(e.diagnosis);
+            });
+
+
+    }
+});*/
+
+
 const app = new Vue({
     el: '#app',
     data:{
@@ -41,39 +87,56 @@ const app = new Vue({
             user:[],
             color:[]
         },
-        doctor:{
-            symptoms : [],
-            diagnosis : [],
-        }
+
+        symptoms:{},
+        selectedSymtomp : [],
+        symptomTexts: "",
+        paramSymptom: "",
     },
 
     methods:{
-      send(){
-          if (this.message.length != 0)
-          {
-              console.log(this.message);
-              // this.doctor.symptoms.push(this.message);
-              // this.chat.user.push('you');
-              // this.chat.color.push('warning');
-              axios.post('diagnosis', {
-                  message : this.message
-              })
-                  .then(response => {
-                      // console.log(response);
-                      this.message = ''
-                  })
-                  .catch(error => {
-                      // console.log(error);
-                      this.message = ''
-                  });
-          }
-      }
+        send(){
+            if (this.symptomTexts.length != 0 || this.selectedSymtomp.length != 0)
+            {
+                for (i = 0; i < this.selectedSymtomp.length; i++)
+                {
+                    this.paramSymptom = this.paramSymptom + " " + this.selectedSymtomp[i];
+                }
+
+                this.paramSymptom = this.paramSymptom + " " + this.symptomTexts;
+
+                console.log('kirim ?????????????');
+                this.chat.message.push(this.message);
+                this.chat.user.push('you');
+                this.chat.color.push('warning');
+                axios.post('/diagnosis', {
+                    message : this.paramSymptom
+                })
+                    .then(response => {
+                        console.log(response);
+                        this.message = ''
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.message = ''
+                    });
+            }
+        }
     },
 
     mounted(){
+        var vm = this;
         Echo.private('chat')
             .listen('ChatEvent', (e) => {
-                this.doctor.diagnosis.push(e.diagnosis);
+                vm.chat.message.push(e.message);
+                vm.chat.user.push(e.user);
+                vm.chat.color.push('success');
+                console.log(vm.chat);
             });
+
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8888/symptom',
+        }).then(response => (this.symptoms= response.data.data));
     }
 });

@@ -24,3 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('send', 'ChatController@send');
 
 Route::post('diagnosis', 'VerdictController@getVerdict');
+
+Route::get('symptom', 'ChatController@getSymptom');
+
+Route::get('index', function(){
+    return view('index');
+});

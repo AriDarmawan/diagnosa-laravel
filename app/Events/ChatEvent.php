@@ -15,7 +15,7 @@ class ChatEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $diagnosis;
+    public $message;
     public $symptoms;
 //    public $user;
     /**
@@ -35,9 +35,9 @@ class ChatEvent implements ShouldBroadcast
 //        foreach ($symptoms as $symptom)
 //        {
 //            $this->response = $symptom;
-        $this->diagnosis = $messages;
+        $this->message = $messages;
         $this->symptoms = $symptoms;
-        $this->broadcastToEveryone();
+//        $this->broadcastToEveryone();
 
 //        $this->dontBroadcastToCurrentUser();
     }
@@ -49,6 +49,6 @@ class ChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new channel('chat');
+        return ['chat']; //['chat']
     }
 }

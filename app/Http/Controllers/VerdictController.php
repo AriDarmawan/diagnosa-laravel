@@ -18,24 +18,8 @@ class VerdictController extends Controller
     //
     public function getVerdict(Request $request)
     {
-//        $symptoms = explode(',',$request->post('symptoms'));
-//        return $request->all();
-        $tmpSymptom1 = $request->post('message');
-//        $symptomsChecks = $request->symptomCheckbox;
-//
-//
-//        $symptoms = null;
-//        if ($tmpSymptom1 != null)
-//        {
-//            $symptoms = $tmpSymptom1;
-//        }
-//        elseif ($symptomsChecks != null)
-//        {
-//            foreach ($symptomsChecks as $symptomsCheck)
-//            {
-//                $symptoms = $symptoms . " " . $symptomsCheck;
-//            }
-//        }
+
+        $tmpSymptom1 = $request->post('symptomsList');
 
         $message =$this->verdict->getVerdict($tmpSymptom1);
 
