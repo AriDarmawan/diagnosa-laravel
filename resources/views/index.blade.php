@@ -258,13 +258,13 @@
         </form>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12" v-if="resultDiagnosis === 1">
         <ul class="list-group primary">
             <li class="list-group-item list-group-item-secondary">
                 <b v-if="chat.message.length != 0">@{{  chat.message[0][0].disease_name}}</b>
                 {{--<b v-if="chat.message.length != 0"> @{{ symptomTexts }} </b>--}}
-                <span v-if="chat.message.length != 0" class="badge badge-success badge-pill ml-2"></span>
-                <span v-if="chat.message.length != 0">@{{ chat.message[0][0].percentage }}</span>
+                <span v-if="chat.message.length != 0" class="badge badge-success badge-pill ml-2">@{{ chat.message[0][0].percentage }}</span>
+                {{--<span v-if="chat.message.length != 0">@{{ chat.message[0][0].percentage }}</span>--}}
                 {{-- percentage --}}
                 <hr>
                 <p class="text-justify"></p>
@@ -272,13 +272,13 @@
                 <div class="row">
                     <div class="col-md-3">
                         <b>Indikator Gejala</b>
-                        <ul>
-                            {{--<li v-for="indikatorSymtop in diseaseList[0].symtompIndikators">@{{indikatorSymtop}}</li>--}}
+                        <ul v-for="symp in chat.message[0][0].symptom_name">
+                            <li>@{{ symp.symptom_name }}</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <b>Gejala yang dirasakan</b>
-                        {{--<p>@{{symtompFelt}}</p>--}}
+                        <p>@{{ paramSymptom }}</p>
                     </div>
                 </div>
                 <p class="text-right">
@@ -302,7 +302,8 @@
             <tr v-if="chat.message.length != 0"  v-for="(disease,index) in chat.message[0]">
                 <th v-if="index !=0" scope="row">@{{index+1}}</th>
                 <td v-if="index !=0" >@{{disease.disease_name}}</td>
-                <td v-if="index !=0">@{{ paramSymptom }}</td>
+                <td v-if="index !=0" ><span v-for="symp in disease.symptom_name">@{{ symp.symptom_name }} </span></td>
+                {{--<ul v-if="index !=0" v-for="symp in disease.symptom_name">@{{ symp.symptom_name }}</ul>--}}
                 <td v-if="index !=0" >@{{disease.percentage}}</td>
             </tr>
             </tbody>

@@ -28,6 +28,7 @@ class Verdict extends Model
 //                            group by diagnosa.disease_id,penyakit.disease_name,penyakit.disease_id
 //                            order by percentage desc,symtomp desc ");
         $verdict = DB::select("select
+                              penyakit.disease_id,
                               penyakit.disease_name,
                               @total := (select count(1) from diagnoses diagnosa1 where diagnosa1.disease_id=penyakit.disease_id) total_symtomp,
                               @selected := (select
@@ -39,7 +40,7 @@ class Verdict extends Model
                                                                                                                         symptom_id
                                                                                                                       from symptoms where MATCH (symptom_name) AGAINST ('~$symptoms' in boolean mode)
                                                                                                                       group by MATCH (symptom_name) AGAINST ('~$symptoms'))) symtomp,
-                              CONCAT((@selected/@total)*100, '%') percentage
+                              CONCAT(round((@selected/@total)*100,2), '%') percentage
                             from diagnoses diagnosa
                                    inner join symptoms gejala on diagnosa.symptom_id = gejala.symptom_id
                                    inner join diseases penyakit on diagnosa.disease_id = penyakit.disease_id
@@ -49,6 +50,14 @@ class Verdict extends Model
                                                         group by MATCH (symptom_name) AGAINST ('~$symptoms'))
                             group by diagnosa.disease_id,penyakit.disease_name,penyakit.disease_id
                             order by percentage desc,symtomp desc ");
+        foreach ($verdict as $ver) {
+
+
+            $indicators = DB::select("select symptom_name from symptoms where symptom_id in (select symptom_id from diagnoses where disease_id= $ver->disease_id)");
+            $ver->symptom_name = $indicators;
+
+        }
+        var_dump($verdict);
         return $verdict;
     }
 }

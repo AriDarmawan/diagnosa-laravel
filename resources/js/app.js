@@ -107,11 +107,11 @@ const app = new Vue({
 
                 this.paramSymptom = this.paramSymptom + " " + this.symptomTexts;
 
-                console.log('kirim ?????????????');
+                this.resultDiagnosis = 1;
                 // this.chat.message.push(this.message);
                 this.chat.user.push('you');
                 this.chat.color.push('warning');
-                axios.post('/diagnosis', {
+                axios.post('http://127.0.0.1:8000/diagnosis', {
                     message : this.paramSymptom
                 })
                     .then(response => {
