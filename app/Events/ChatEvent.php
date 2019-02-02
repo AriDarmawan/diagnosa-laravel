@@ -49,6 +49,6 @@ class ChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['chat']; //['chat']
+        return new PrivateChannel('chat'); //['chat']
     }
 }

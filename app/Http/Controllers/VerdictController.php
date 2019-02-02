@@ -19,7 +19,7 @@ class VerdictController extends Controller
     public function getVerdict(Request $request)
     {
 
-        $tmpSymptom1 = $request->post('symptomsList');
+        $tmpSymptom1 = $request->post('message');
 
         $message =$this->verdict->getVerdict($tmpSymptom1);
 

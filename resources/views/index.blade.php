@@ -257,6 +257,7 @@
             {{--<h1>@{{ symptomTexts }}</h1>--}}
         </form>
     </div>
+
     <div class="col-md-12">
         <ul class="list-group primary">
             <li class="list-group-item list-group-item-secondary">
@@ -281,12 +282,12 @@
                     </div>
                 </div>
                 <p class="text-right">
-                    <a href="javascript:void(0);" class="badge badge-primary" >Lihat Kemungkinan lain</a>
+                    <a href="javascript:void(0);" class="badge badge-primary" v-on:click="otherDiagnosis = 1">Lihat Kemungkinan lain</a>
                 </p>
             </li>
         </ul>
     </div>
-    <div class="col-md-12" >
+    <div class="col-md-12" v-if="otherDiagnosis === 1">
         <p class="text-left"><h4>Kemungkinan Penyakit lain</h4></p>
         <table class="table table-striped">
             <thead>
@@ -298,7 +299,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr  v-for="(disease,index) in chat.message[0]">
+            <tr v-if="chat.message.length != 0"  v-for="(disease,index) in chat.message[0]">
                 <th v-if="index !=0" scope="row">@{{index+1}}</th>
                 <td v-if="index !=0" >@{{disease.disease_name}}</td>
                 <td v-if="index !=0">@{{ paramSymptom }}</td>

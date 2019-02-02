@@ -92,13 +92,15 @@ const app = new Vue({
         selectedSymtomp : [],
         symptomTexts: "",
         paramSymptom: "",
+        otherDiagnosis: null,
+        resultDiagnosis: null,
     },
 
     methods:{
         send(){
             if (this.symptomTexts.length != 0 || this.selectedSymtomp.length != 0)
             {
-                for (i = 0; i < this.selectedSymtomp.length; i++)
+                for ( let i = 0; i < this.selectedSymtomp.length; i++)
                 {
                     this.paramSymptom = this.paramSymptom + " " + this.selectedSymtomp[i];
                 }
@@ -106,7 +108,7 @@ const app = new Vue({
                 this.paramSymptom = this.paramSymptom + " " + this.symptomTexts;
 
                 console.log('kirim ?????????????');
-                this.chat.message.push(this.message);
+                // this.chat.message.push(this.message);
                 this.chat.user.push('you');
                 this.chat.color.push('warning');
                 axios.post('/diagnosis', {
@@ -120,6 +122,8 @@ const app = new Vue({
                         console.log(error);
                         this.message = ''
                     });
+
+                this.resultDiagnosis = 1;
             }
         }
     },
@@ -136,7 +140,7 @@ const app = new Vue({
 
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8888/symptom',
+            url: 'http://127.0.0.1:8000/symptom',
         }).then(response => (this.symptoms= response.data.data));
     }
 });
